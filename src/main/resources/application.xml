@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <!--    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">-->
+    <!--        <property name="location" value="classpath:application.properties"/>-->
+    <!--    </bean>-->
+    <context:annotation-config/>
+        <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+    <context:property-placeholder location="classpath:application.properties"/>
+    <bean id="repo1" name="r1" class="by.bnd.spring.database.repository.UserRepository">
+        <constructor-arg name="userName" value="${db.username}"/>
+        <constructor-arg name="poolSize" value="${db.pool.size}"/>
+        <constructor-arg name="args">
+            <list>
+                <value>1</value>
+                <value>2</value>
+                <value>3</value>
+            </list>
+        </constructor-arg>
+        <constructor-arg name="properties">
+            <map>
+                <entry key="user" value="siarhei@gmail.com"/>
+                <entry key="address" value="Minsk"/>
+            </map>
+        </constructor-arg>
+    </bean>
+    <bean id="repo2" name="r2,r3" class="by.bnd.spring.database.repository.UserRepository">
+        <property name="userName" ref="driver"/>
+        <property name="properties">
+            <map>
+                <entry key="user" value="aliaksei"/>
+                <entry key-ref="driver" value-ref="driver"/>
+            </map>
+        </property>
+    </bean>
+    <bean name="driver" class="java.lang.String">
+        <constructor-arg value="PostgresDriver"/>
+    </bean>
+    <bean name="userDto" class="by.bnd.spring.dto.UserDto" scope="prototype"/>
+
+    <bean name="userMapper" class="by.bnd.spring.mapper.UserMapper" scope="prototype">
+        <constructor-arg name="userDto" ref="userDto"/>
+    </bean>
+
+    <bean name="userService" class="by.bnd.spring.service.UserService">
+        <constructor-arg name="userMapper" ref="userMapper"/>
+        <constructor-arg name="userRepository" ref="repo1"/>
+    </bean>
+
+
+</beans>
