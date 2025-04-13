@@ -1,22 +1,15 @@
 package by.bnd.spring.database.repository;
 
+import by.bnd.spring.bpp.InjectBean;
 import by.bnd.spring.database.repository.pool.ConnectionPool;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
 
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @ToString
 public class UserRepository {
+    //@InjectBean
+    @Autowired
     private ConnectionPool connectionPool;
 
-    @PostConstruct
-    public void init(){
-        System.out.println("Init UserRepository");
-    }
-
-    @PreDestroy
-    public void destroy(){
-        System.out.println("Destroy UserRepository");
-    }
 }

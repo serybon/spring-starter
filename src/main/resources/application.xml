@@ -10,33 +10,15 @@
     <!--        <property name="location" value="classpath:application.properties"/>-->
     <!--    </bean>-->
     <context:annotation-config/>
-        <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
     <context:property-placeholder location="classpath:application.properties"/>
-    <bean id="repo1" name="r1" class="by.bnd.spring.database.repository.UserRepository">
-        <constructor-arg name="userName" value="${db.username}"/>
+    <bean class="by.bnd.spring.bpp.InjectBeanPostProcessor"/>
+    <bean id="repo1" name="r1" class="by.bnd.spring.database.repository.UserRepository"/>
+    <bean class="by.bnd.spring.database.repository.pool.ConnectionPool">
+        <constructor-arg name="username" value="${db.username}"/>
+        <constructor-arg name="password" value="${db.password}"/>
         <constructor-arg name="poolSize" value="${db.pool.size}"/>
-        <constructor-arg name="args">
-            <list>
-                <value>1</value>
-                <value>2</value>
-                <value>3</value>
-            </list>
-        </constructor-arg>
-        <constructor-arg name="properties">
-            <map>
-                <entry key="user" value="siarhei@gmail.com"/>
-                <entry key="address" value="Minsk"/>
-            </map>
-        </constructor-arg>
-    </bean>
-    <bean id="repo2" name="r2,r3" class="by.bnd.spring.database.repository.UserRepository">
-        <property name="userName" ref="driver"/>
-        <property name="properties">
-            <map>
-                <entry key="user" value="aliaksei"/>
-                <entry key-ref="driver" value-ref="driver"/>
-            </map>
-        </property>
+        <constructor-arg name="url" value="${db.url}"/>
     </bean>
     <bean name="driver" class="java.lang.String">
         <constructor-arg value="PostgresDriver"/>
