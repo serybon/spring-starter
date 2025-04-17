@@ -14,7 +14,13 @@
     <context:property-placeholder location="classpath:application.properties"/>
     <bean class="by.bnd.spring.bpp.InjectBeanPostProcessor"/>
     <bean id="repo1" name="r1" class="by.bnd.spring.database.repository.UserRepository"/>
-    <bean class="by.bnd.spring.database.repository.pool.ConnectionPool">
+    <bean name="connectionPool1" class="by.bnd.spring.database.repository.pool.ConnectionPool">
+        <constructor-arg name="username" value="${db.username}"/>
+        <constructor-arg name="password" value="${db.password}"/>
+        <constructor-arg name="poolSize" value="${db.pool.size}"/>
+        <constructor-arg name="url" value="${db.url}"/>
+    </bean>
+    <bean name="connectionPool2" class="by.bnd.spring.database.repository.pool.ConnectionPool">
         <constructor-arg name="username" value="${db.username}"/>
         <constructor-arg name="password" value="${db.password}"/>
         <constructor-arg name="poolSize" value="${db.pool.size}"/>
