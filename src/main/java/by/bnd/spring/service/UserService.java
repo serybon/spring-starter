@@ -6,12 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.stereotype.Service;
 
 
-@NoArgsConstructor(force = true)
-@Setter
 @ToString
 @RequiredArgsConstructor
+@Service
 public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;

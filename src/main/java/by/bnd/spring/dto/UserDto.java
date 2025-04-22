@@ -1,7 +1,8 @@
 package by.bnd.spring.dto;
 
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
-@NoArgsConstructor
+@Component
 public class UserDto {
 }

@@ -5,11 +5,13 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-@NoArgsConstructor(force = true)
-@Setter
+
 @ToString
-@RequiredArgsConstructor
+@Component
 public class UserMapper {
-    private final UserDto userDto;
+    @Autowired
+    private UserDto userDto;
 }

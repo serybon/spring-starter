@@ -1,21 +1,23 @@
 package by.bnd.spring.database.repository;
 
-import by.bnd.spring.bpp.InjectBean;
 import by.bnd.spring.database.repository.pool.ConnectionPool;
 
-import jakarta.annotation.Resource;
 import lombok.ToString;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @ToString
+@Repository
 public class UserRepository {
-//    @InjectBean
-//    @Autowired
-    @Resource(name = "connectionPool1")
-    private ConnectionPool connectionPool;
 
-    @Value("${db.pool.size}")
+    private ConnectionPool connectionPool1;
     private Integer poolSize;
+    private List<ConnectionPool> connectionPoolList;
 
+    public UserRepository(ConnectionPool connectionPool1) {
+        this.connectionPool1 = connectionPool1;
+
+    }
 }
