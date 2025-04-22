@@ -24,7 +24,7 @@ public class CompanyService {
         System.out.println("Company repository findById method called");
         return companyRepository.findById(id).map(entity -> {
             eventPublisher.publishEvent(new EntityEvent(entity, AccessType.DELETE));
-            return new CompanyReadDto(entity.id());
+            return new CompanyReadDto(entity.getId());
         });
     }
 
