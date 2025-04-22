@@ -2,6 +2,7 @@ package by.bnd.spring.config;
 
 import by.bnd.spring.database.repository.UserRepository;
 import by.bnd.spring.database.repository.pool.ConnectionPool;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.*;
 
@@ -11,8 +12,8 @@ public class ApplicationConfiguration {
 
     @Bean("connectionPool1")
     @Scope(BeanDefinition.SCOPE_SINGLETON)
-    public ConnectionPool connectionPool() {
-        return new ConnectionPool("postgres", "admin", 20, "url");
+    public ConnectionPool connectionPool(@Value("${db.username}")String username) {
+        return new ConnectionPool(username, "admin", 20, "url");
     }
 
     @Bean
@@ -22,6 +23,6 @@ public class ApplicationConfiguration {
 
     @Bean
     public UserRepository userRepository() {
-        return new UserRepository(connectionPool());
+        return new UserRepository(connectionPool2());
     }
 }
